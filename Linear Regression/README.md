@@ -3,13 +3,15 @@
 ## Basics
 The main task of this program is to model the relationship between two variables by fitting a linear equation to implemented data. 
 
-A linear regression line has an equation of the form
+A linear regression line has an equation of a form
 
 ![equation](./img/eq_y.jpg)
 
-Where _a_ stands for a slope of the line and _b_ is the value of _y_ when _x_ = 0 (intercept)
+Where _a_ stands for a slope of the line and _b_ is the value of _y_ when _x_ = 0 (intercept value)
 
-We can calculate the _a_ and _b_ with help of _Least-squares_ method. This method minimizes the sum of the squares of the vertical deviations from each data point to the line. Each deviation is squared that is why the positive and negative values will not cancel each other.
+We can calculate the _a_ and _b_ with help of _Least-squares_ method.
+This method minimizes the sum of the squares of the vertical deviations from each data point to the line.
+Each deviation is squared that is why the positive and negative values will not cancel each other.
 The value of _a_ can be determined by a formula
 
 ![equation](./img/eq_a.jpg)
@@ -18,8 +20,9 @@ After we calculate _a_ the _b_ can be determined by a formula
 
 ![equation](./img/eq_b.jpg)
 
-In my program this equation is performed in _calcLine()_ method. This function first calculates the average of my arguments ( _avgX_ ) and their values ( _avgY_ ). Then the rest of equation is performed 
-
+In my program this equation is performed in _calcLine()_ method.
+This function first calculates the average of my arguments ( _avgX_ ) and their values ( _avgY_ ).
+Then the rest of equation is performed 
 
 ~~~javascript
 let sumDelta = 0;
