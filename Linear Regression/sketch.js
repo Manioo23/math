@@ -26,7 +26,7 @@ function mouseClicked() {
 	let _y = map(mouseY, 0, height, 100, 0);
 	data.push(createVector(_x, _y));
 	show(data[data.length - 1]);
-	calcAverage();
+	calcLine();
 }
 
 function keyTyped() {
@@ -48,7 +48,7 @@ function show(_vec) {
  * Calculate average of y axis and x axis
  * 
  */
-function calcAverage() {
+function calcLine() {
 	let sumX = 0; 
 	let sumY = 0;
 	let sumDelta = 0;
@@ -57,6 +57,7 @@ function calcAverage() {
 		y1, 
 		x2 = 100, 
 		y2;
+		
 	for(let i = 0; i < data.length; i++) {
 		sumX += data[i].x;
 		sumY += data[i].y;
