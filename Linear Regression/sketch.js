@@ -6,7 +6,7 @@ let a, b;
 function setup() {
 	createCanvas(800, 800);
 	frameRate(30);
-	background(100);
+	background(250);
 	avgX = 0; 
 	avgY = 0;
 	interval = 50;
@@ -41,8 +41,8 @@ function show(_vec) {
 	let _x = map(_vec.x, 100, 0, width, 0);
 	let _y = map(_vec.y, 0, 100, height, 0);
 	stroke(0);
-	fill(240);
-	ellipse(_x, _y, 5, 5);
+	fill(100);
+	ellipse(_x, _y, 7, 7);
 }
 /**
  * Calculate average of y axis and x axis
@@ -74,7 +74,7 @@ function calcLine() {
 
 	a = sumDelta / sumDeltaX2;
 	b = avgY - (a * avgX);
-	background(100);
+	background(250);
 	for (let i = 0; i < data.length; i++) {
 		show(data[i]);
 	}
@@ -91,5 +91,9 @@ function calcLine() {
 	y1 = map(y1, 0, 100, height, 0);
 	y2 = map(y2, 0, 100, height, 0);
 
+	stroke(250, 50, 60);
+	strokeWeight(3);
 	line(x1, y1, x2, y2);
+	strokeWeight(1);
+	stroke(0);
 }
