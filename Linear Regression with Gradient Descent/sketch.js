@@ -109,12 +109,6 @@ function calcLine() {
 	let errorSum = 0;
 	let error = null;
 
-	/** FIXME:
-	 * Some thing is incorrect in this formula. 
-	 * The line is going towards being completely horizontal.
-	 * I don't now yet why and how to fix it. However there is probably 
-	 * a problem with error of intercept.
-	*/
 	data.forEach((dataPoint, index) => {
 		guess = a * dataPoint.x + b;
 		errorSum += dataPoint.y - guess;
