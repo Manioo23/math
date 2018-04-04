@@ -1,28 +1,25 @@
 let data = [],
-	learningRateSlider, /** Slider for adjusting learning rate */
-	avgX = 0, /** Average X of data */
-	avgY = 0, /** Average Y of data */
+	errors = [],
 	a = 1, /** Slope of the line */
 	b = 0, /** Intercept */ 
- 	learningRate = 0.001;
+	minError = 0, 
+	maxError = 0,
+ 	learningRate = 0.0002;
 
 function setup() {
 	createCanvas(800, 800);
 	frameRate(30);
 	background(10);
-
-	learningRateSlider = createSlider(0, 0.01, 0.001, 0.0001);
-	learningRateSlider.position(20, 20);
-	learningRateSlider.style('width', '200px')
 }
 function draw() {
-	/** Reading the value of slider */
-	learningRate = learningRateSlider.value();
-
 	/** Every frame the line will be fitted */
 	if(data.length) {
 		calcLine();		
 	}
+
+	
+	showErrors();
+	
 }
 
 function mouseClicked() {
@@ -37,6 +34,29 @@ function mouseClicked() {
 
 function keyTyped() {
 	
+}
+/** Shows an error chart to the screen */
+function showErrors() {
+	if(errors.length > width / 5) {
+		errors.splice(0, 1);
+	}
+
+	let x = width / errors.length;
+	let y = 0;
+
+	errors.forEach((errorPoint, index) => {
+		y = map(errorPoint, minError, maxError, height, height / 3);
+		
+		stroke(200, 100, 100);
+		point(x * index, y);
+	});
+	
+	y = map(0, minError, maxError, height, height / 3)
+	line(0, y, 25, y);
+
+	fill(200, 100, 100);
+	noStroke();
+	text("Error = 0", 3, y-3);
 }
 
 /** Adds and shows a data point at given position on canvas.
@@ -86,6 +106,7 @@ function showLine() {
 /** Calculates the best fitted line based on given points */
 function calcLine() {
 	let guess = null;
+	let errorSum = 0;
 	let error = null;
 
 	/** FIXME:
@@ -94,13 +115,18 @@ function calcLine() {
 	 * I don't now yet why and how to fix it. However there is probably 
 	 * a problem with error of intercept.
 	*/
-	data.forEach(dataPoint => {
+	data.forEach((dataPoint, index) => {
 		guess = a * dataPoint.x + b;
-		error = dataPoint.y - guess;
-		
-		a += a * error * learningRate;
-		b += error * learningRate;
+		errorSum += dataPoint.y - guess;
+
+		error = errorSum / (index + 1);
+		a += dataPoint.x * error * learningRate;
+		b += error * learningRate * 100;
 	});
+	
+	minError = minError > error ? error : minError;
+	maxError = maxError < error ? error : maxError;
+	errors.push(error);
 
 	background(10);
 
