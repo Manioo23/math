@@ -1,4 +1,4 @@
-const DATA_SIZE = 150;
+const DATA_SIZE = 500;
 
 let data = [],
 	brain, 
