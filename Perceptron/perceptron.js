@@ -11,7 +11,7 @@ class Perceptron {
 			   ellipse(this.x, this.y, this.radius * 2, this.radius * 2);
 		   }
 	   }
-	   this.learningRate = 0.0001;
+	   this.learningRate = 0.00005;
 	}
 
 	show() {
@@ -30,11 +30,11 @@ class Perceptron {
 			dataPoint.isGuessed = error;
 
 			/**FIXME:
-			 * Wrong formula for corretcting the x and y of Perceptrons circle
+			 * Formula works but I'm not covinced that it is correct
 			 */
-			this.circle.radius += error * this.learningRate;
-			this.circle.x += error * this.learningRate * dataPoint.x;
-			this.circle.y += error * this.learningRate * dataPoint.y;
+			this.circle.radius += error * this.learningRate * 100;
+			this.circle.x -= error * this.learningRate * (this.circle.x - dataPoint.x);
+			this.circle.y -= error * this.learningRate * (this.circle.y - dataPoint.y);
 			
 		});
 	}
