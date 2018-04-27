@@ -4,6 +4,13 @@ let randomX = d3.randomUniform(0, width),
     randomY = d3.randomUniform(height, 0),
     data = [];
 
+
+
+let width = 600,
+	height = 600,
+	radius = 20;
+
+
 class Point {
     constructor(_x, _y) {
         this.x = _x;
@@ -11,14 +18,7 @@ class Point {
     }
 }
 
-for(let i = 0; i < DATA_COUNT; i++) {
-    data.push(new Point(randomX(), randomY()))
-}
-svg .selectAll('circle')
-    .data(data)
-    .enter()
-    .append('circle')
-    .attr('cx', d => { return d.x })
-	.attr('cy', d => { return d.y })
-	.attr('r', 5)
-    .style('fill', 'white')
+
+var svg = d3.select('body').append('svg')
+	.attr('width', width)
+	.attr('height', height);
