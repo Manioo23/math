@@ -1,8 +1,4 @@
-
-
-
 let old_center = new Point(randomX(), randomY());
-
 
 svg.append('g')
 	.append('circle')
