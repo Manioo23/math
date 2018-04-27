@@ -1,15 +1,12 @@
 const DATA_COUNT = 100;
 
-let randomX = d3.randomUniform(0, width),
-    randomY = d3.randomUniform(height, 0),
-    data = [];
-
-
-
 let width = 600,
 	height = 600,
 	radius = 20;
 
+let randomX = d3.randomUniform(0, width),
+    randomY = d3.randomUniform(height, 0),
+    data = [];
 
 class Point {
     constructor(_x, _y) {
