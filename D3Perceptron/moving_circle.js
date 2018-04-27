@@ -8,7 +8,7 @@ let old_center = new Point(randomX(), randomY()),
 console.log(new_center);
 	
 
-svg.append('g')
+svg	.append('g')
 	.append('circle')
 	.attr('cx', old_center.x)
 	.attr('cy', old_center.y)
@@ -16,7 +16,7 @@ svg.append('g')
 	.attr('class', 'circle');
 
 
-d3.select('circle')
+d3	.select('.circle')
 	.transition()
 	.attr('cx', new_center.x)
 	.attr('cy', new_center.y)
