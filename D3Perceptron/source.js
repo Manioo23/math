@@ -15,11 +15,16 @@ let finalCircle = {
     r: 100
 }
 
+let old_center = {x: randomX(), y: randomY()},
+	new_center = {x: randomX(), y: randomY()};
+	new_radius = d3.randomUniform(10, 80)();
+
 class Point {
     constructor(_x, _y) {
         this.x = _x;
         this.y = _y;
-        this.isInCircle = (this.x - finalCircle.x) ** 2 + (this.y - finalCircle.y) ** 2 <= finalCircle.r ** 2; 
+        this.isInCircle = (this.x - finalCircle.x) ** 2 + (this.y - finalCircle.y) ** 2 <= finalCircle.r ** 2;
+        this.isGuessed = (this.x - new_center.x) ** 2 + (this.y - new_center.y) ** 2 <= new_radius ** 2;
     }
 }
 

@@ -1,10 +1,3 @@
-
-
-
-let old_center = new Point(randomX(), randomY()),
-	new_center = new Point(randomX(), randomY());
-	new_radius = d3.randomUniform(10, 80)();
-
 console.log(new_center);
 	
 
