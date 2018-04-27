@@ -37,3 +37,6 @@ svg .append('circle')
     .attr('cy', finalCircle.y)
     .attr('r', finalCircle.r)
     .style('stroke', 'white');
+
+    //TODO:
+    //Circle overlaping
