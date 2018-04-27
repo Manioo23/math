@@ -19,7 +19,7 @@ let circle = {
 function Point() {
 	this.x = random() * width;
 	this.y = random() * height;
-	this.isInCircrle = dist(circle.x, circle.y, this.x, this.y) <= circle.radius ? 1 : -1;
+	this.isInCircrle = dist(circle.x, circle.y, this.x, this.y) <= circle.radius ? 1 : 0;
 	this.isGuessed = null;
 
 	this.show = () => {

@@ -29,7 +29,7 @@ class Perceptron {
 			//Visualising
 			dataPoint.isGuessed = error;
 
-			this.circle.radius += error * this.learningRate * 100;
+			this.circle.radius += error * this.learningRate * 1000;
 			this.circle.x -= error * this.learningRate * (this.circle.x - dataPoint.x);
 			this.circle.y -= error * this.learningRate * (this.circle.y - dataPoint.y);
 			
@@ -37,6 +37,6 @@ class Perceptron {
 	}
 
 	makeGuess(x, y) {
-		return dist(this.circle.x, this.circle.y, x, y) <= this.circle.radius ? 1 : -1;
+		return dist(this.circle.x, this.circle.y, x, y) <= this.circle.radius ? 1 : 0;
 	}
 }
