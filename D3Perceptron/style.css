@@ -1,3 +1,8 @@
 body {
     background: grey
 }
+
+circle {
+	stroke : red;
+	transition-timing-function: cubic-bezier(.34,-0.62,.37,1.55)
+}
