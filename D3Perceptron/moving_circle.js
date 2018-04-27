@@ -14,6 +14,6 @@ svg.append('g')
 	.attr('cy', center[1])
 	.attr('r', radius)
 	.style('stroke', 'red');
-
+console.log(data);
 
 
