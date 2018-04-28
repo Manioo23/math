@@ -1,27 +1,24 @@
-console.log(new_center);
+console.log(newCenter);
 	
-
 svg	.append('g')
 	.append('circle')
-	.attr('cx', old_center.x)
-	.attr('cy', old_center.y)
+	.attr('cx', oldCenter.x)
+	.attr('cy', oldCenter.y)
 	.attr('r', radius)
 	.attr('class', 'circle');
 
-let my_circle = d3.select('.circle');
+let myCircle = d3.select('.circle');
 
-
-my_circle
-	.transition()
-	.attr('cx', new_center.x)
-	.attr('cy', new_center.y)
-	.attr('r', new_radius)
+myCircle.transition()
+	.attr('cx', newCenter.x)
+	.attr('cy', newCenter.y)
+	.attr('r', newRadius)
 	.duration(10000);
 
 let checkData = () => {
-	let tempX = my_circle.attr('cx'),
-		tempY = my_circle.attr('cy'),
-		tempR = my_circle.attr('r'),
+	let tempX = myCircle.attr('cx'),
+		tempY = myCircle.attr('cy'),
+		tempR = myCircle.attr('r'),
 		tempGuess = null;
 
 	d3	.selectAll('.dataPoints')

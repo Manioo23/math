@@ -2,7 +2,7 @@ body {
     background: grey
 }
 
-circle {
+.circle {
 	stroke : red;
-	transition-timing-function: cubic-bezier(.34,-0.62,.37,1.55)
+	transition: cubic-bezier(.34,-0.62,.37,1.55);
 }
