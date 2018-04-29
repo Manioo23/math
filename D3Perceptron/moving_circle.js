@@ -4,7 +4,7 @@ svg	.append('g')
 	.append('circle')
 	.attr('cx', oldCenter.x)
 	.attr('cy', oldCenter.y)
-	.attr('r', radius)
+	.attr('r', oldRadius)
 	.attr('class', 'circle');
 
 let myCircle = d3.select('.circle');
