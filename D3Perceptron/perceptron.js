@@ -21,7 +21,11 @@ class Perceptron {
         /** Activation Function */
     }
 
-    move = () => {
-       /** Moving Circle DOM Element */
+    move = (newX, newY) => {
+        d3  .select('.circle')
+            .transition()
+            .attr('cx', newX)
+            .attr('cy', newY)
+            .duration(1000);
     }
 }
