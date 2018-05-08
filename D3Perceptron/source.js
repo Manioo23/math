@@ -17,6 +17,7 @@ let finalCircle = {
 
 let oldCenter = { x: randomX(), y: randomY() },
 	newCenter = { x: randomX(), y: randomY() },
+	oldRadius = radius,
 	newRadius = d3.randomUniform(10, 80)();
 
 class Point {
