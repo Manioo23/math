@@ -20,7 +20,7 @@ let checkData = () => {
 	d3	.selectAll('.dataPoints')
 		.style('fill', d => {
 			tempGuess = (d.x - tempX) ** 2 + (d.y - tempY) ** 2 <= tempR ** 2;
-			return tempGuess ? 'green' : 'red';
+			return tempGuess == d.isInCircle ? 'green' : 'red';
 		})
 }
 

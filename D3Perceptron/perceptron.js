@@ -55,4 +55,4 @@ class Perceptron {
 
 let perceptronCircle = new Perceptron(oldCenter.x, oldCenter.y, radius);
 
-setInterval(() => perceptronCircle.train(data), 1000);
+setInterval(() => perceptronCircle.train(data), 700);
