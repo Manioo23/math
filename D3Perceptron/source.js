@@ -33,6 +33,7 @@ var svg = d3.select('body').append('svg')
 	.attr('width', width)
 	.attr('height', height);
 
+/** Final circle */
 svg.append('circle')
 	.attr('cx', finalCircle.x)
 	.attr('cy', finalCircle.y)

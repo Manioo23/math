@@ -1,7 +1,5 @@
-console.log(newCenter);
-	
-svg	.append('g')
-	.append('circle')
+/** Initial drawing circle to the screen */
+svg .append('circle')
 	.attr('cx', oldCenter.x)
 	.attr('cy', oldCenter.y)
 	.attr('r', oldRadius)
@@ -9,12 +7,10 @@ svg	.append('g')
 
 let myCircle = d3.select('.circle');
 
-myCircle.transition()
-	.attr('cx', newCenter.x)
-	.attr('cy', newCenter.y)
-	.attr('r', newRadius)
-	.duration(10000);
-
+/** Checking for data points inside the circle, 
+ * Is called very often to make an illusion
+ * of real time updating
+ */
 let checkData = () => {
 	let tempX = myCircle.attr('cx'),
 		tempY = myCircle.attr('cy'),
