@@ -1,5 +1,5 @@
 class Perceptron {
-    constructor(_x = randomX(), _y = randomY(), _radius = d3.randomUniform(10, 800)(), _lr = null) {
+    constructor(_x = randomX(), _y = randomY(), _radius = d3.randomUniform(10, 800)(), _lr = 0.01) {
         this.weights = [];
 
         this.radius = 0;
@@ -11,7 +11,7 @@ class Perceptron {
         this.pos.x = _x;
         this.pos.y = _y;
         this.radius = _radius;
-        this.learning_rate = _lr | 0.001;
+        this.learning_rate = _lr;
     }
 
     train(inputs){
@@ -22,14 +22,15 @@ class Perceptron {
                 isInCircle = element.isInCircle;
             
             /** Calculating error */
-            let predict = activation(x, y);
+            let predict = this.activation(x, y);
             let error = predict - isInCircle;
 
-            this.radius += error * _lr;
-            this.pos.x -= error * _lr;
-            this.pos.y -= error * _lr;
+            this.radius -= error * this.learning_rate * 100;
+            this.pos.x += error * this.learning_rate * (this.pos.x - element.x);
+            this.pos.y += error * this.learning_rate * (this.pos.y - element.y);
         });
 
+        this.move(this.pos.x, this.pos.y);
     }
 
     activation(x, y){
@@ -44,8 +45,14 @@ class Perceptron {
             .transition()
             .attr('cx', newX)
             .attr('cy', newY)
+            .attr('r', this.radius)
             .duration(1000);
+
+        console.log('working!');
+        
     }
 }
 
 let perceptronCircle = new Perceptron(oldCenter.x, oldCenter.y, radius);
+
+setInterval(() => perceptronCircle.train(data), 1000);
