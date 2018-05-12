@@ -46,10 +46,7 @@ class Perceptron {
             .attr('cx', newX)
             .attr('cy', newY)
             .attr('r', this.radius)
-            .duration(1000);
-
-        console.log('working!');
-        
+            .duration(1000);        
     }
 }
 
