@@ -28,6 +28,7 @@ function draw() {
 	foods.forEach(food => {
 		food.show();
 	});
+	
 	blops.forEach((blop, index) => {
 		if(blop.update()) {
 			// let minInd;

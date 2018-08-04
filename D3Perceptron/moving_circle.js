@@ -7,12 +7,16 @@ svg .append('circle')
 
 let myCircle = d3.select('.circle');
 
-/** Checking for data points inside the circle, 
+/** 
+ * Checking for data points inside the circle, 
  * Is called very often to make an illusion
- * of real time updating
+ * of real time updating.
  */
 let checkData = () => {
-	let tempX = myCircle.attr('cx'),
+	/**
+	 * Getting the svg class circle attributes. 
+	 */
+	let tempX = myCircle.attr('cx'), 
 		tempY = myCircle.attr('cy'),
 		tempR = myCircle.attr('r'),
 		tempGuess = null;
@@ -24,4 +28,4 @@ let checkData = () => {
 		})
 }
 
-setInterval(() => checkData() , 5);
+setInterval(() => checkData() , 1);

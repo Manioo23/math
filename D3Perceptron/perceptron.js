@@ -8,6 +8,8 @@ class Perceptron {
             y: 0
         }
 
+        this.i = 1;
+
         this.pos.x = _x;
         this.pos.y = _y;
         this.radius = _radius;
@@ -28,13 +30,15 @@ class Perceptron {
             this.radius -= error * this.learning_rate * 100;
             this.pos.x += error * this.learning_rate * (this.pos.x - element.x);
             this.pos.y += error * this.learning_rate * (this.pos.y - element.y);
+            this.learning_rate += this.learning_rate ** this.i;
+            this.i += 1;
         });
 
         this.move(this.pos.x, this.pos.y);
     }
 
     activation(x, y){
-        /** left and right sides of cricle equation */
+        /** left and right sides of circle inequality */
         let left = (x - this.pos.x) ** 2 + (y - this.pos.y) ** 2,
             right = this.radius ** 2;
         return left <= right ? 1 : 0;
@@ -46,10 +50,10 @@ class Perceptron {
             .attr('cx', newX)
             .attr('cy', newY)
             .attr('r', this.radius)
-            .duration(1000);        
+            .duration(100);        
     }
 }
 
 let perceptronCircle = new Perceptron(oldCenter.x, oldCenter.y, radius);
 
-setInterval(() => perceptronCircle.train(data), 700);
+setInterval(() => perceptronCircle.train(data), 100);
