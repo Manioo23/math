@@ -18,9 +18,9 @@ class Neuron {
         finalSum += this.bias;
         return finalSum;
     }
+    
     activate(_inputs) {
         this.inputs = _inputs;
-
         return this.actFunct(this.sum());
     }
 }

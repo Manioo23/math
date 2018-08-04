@@ -22,7 +22,7 @@ class Net {
         let actFun = this.activations[0]
         neurons[0] = Array(layerSize);
         for(let j = 0; j < layerSize; j++) {
-            neurons[0][j] = new Neuron(actFun, 1, ones)
+            neurons[0][j] = new Neuron(Activation[actFun], 1, ones)
         }
 
         // Initialize all the other layers in second place.
@@ -33,15 +33,25 @@ class Net {
             actFun = this.activations[i]
             neurons[i] = Array(layerSize);
             for(let j = 0; j < layerSize; j++) {
-                neurons[i][j] = new Neuron(actFun, previousLayerSize, Math.random);
+                neurons[i][j] = new Neuron(Activation[actFun], previousLayerSize, Math.random);
             }
         }
 
         this.neurons = neurons;
     }
 
+    feedForward(_input) {
+        let a = _input;
+        for (let i = 0; i < this.numLayers; i++) {
+            let layerSize = this.sizes[i];
+            let b = Array(layerSize);
+            for (let j = 0; j < layerSize; j++) {
+                b[j] = this.neurons[i][j].activate(a);
+            }
+            a = b;
+        }
 
-
-
+        return(a);
+    }
 
 }
