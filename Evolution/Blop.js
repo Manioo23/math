@@ -1,9 +1,10 @@
 
 class Blop {
+	//If the parent exist it will mutate its genotype in the constructor
 	constructor(parent = null) {
 		this.pos = {
-			x: parent ? parent.pos.x + random(20) - 10 : random(width),
-			y: parent ? parent.pos.y + random(20) - 10 : random(height)
+			x: parent ? parent.pos.x + random(-10, 10) : random(width),
+			y: parent ? parent.pos.y + random(-10, 10) : random(height)
 		}
 		this.acc = {
 			x: 0,
@@ -15,10 +16,10 @@ class Blop {
 		}
 		this.aim = null;		
 		
-		this.mass = parent ? parent.mass + random(20) - 10 : random() * 100;
+		this.mass = parent ? parent.mass + random(-10, 10) : random() * 100;
 		this.speed = map(this.mass, 0, 100, 0.8, 0.5);
 		this.drag = map(this.mass, 0, 100, 0.90, 0.75);
-		this.viewRadius = parent ? parent.viewRadius + random(20) - 10 : random(100, 200);
+		this.viewRadius = parent ? parent.viewRadius + random(-10, 10) : random(100, 200);
 		
 		this.r = map(this.mass, 0, 100, 5, 15);
 		this.maxHealth = map(this.mass, 0, 100, 1, 1.8);
@@ -26,9 +27,9 @@ class Blop {
 		this.lifeTime = parent ? parent.lifeTime * 0.3 : 0;
 		
 		this.DNA = {
-			kill: parent ? parent.DNA.kill + random(0.2) - 0.1 : random(),
-			eat: parent ? parent.DNA.eat + random(0.2) - 0.1 : random(),
-			family: parent ? parent.DNA.family + random(0.1) - 0.05 : random()
+			kill: parent ? parent.DNA.kill + random(-0.1, 0.1) : random(),
+			eat: parent ? parent.DNA.eat + random(-0.1, 0.1) : random(),
+			family: parent ? parent.DNA.family + random(-0.05, 0.05) : random()
 		}
 
 		this.col = {
@@ -37,17 +38,24 @@ class Blop {
 			b: map(this.DNA.family, 0, 1, 100, 255)
 		}
 	}
+	//Appling force in this exact frame
 	applyForce(x = 0, y = 0) {
 		this.acc.x += x;
 		this.acc.y += y;
 	}
+	//Updating Blop stats every frame
 	update() {
+		//Decide whether to attack another blop or eat something 
 		this.decide();
 
+		if(this.DNA.kill < 0) {
+			console.log('Here');
+		}
 		if(this.aim) {
+			//Checking if the aim acctualy exists in the aims array
+			//And adding force towards the aim
 			if(this.aim.type === 'FOOD' && foods[this.aimIndex]) {
 				if(this.aim.pos == foods[this.aimIndex].pos) {
-					
 					let vec = createVector(-this.pos.x + this.aim.pos.x, -this.pos.y + this.aim.pos.y);
 					vec.normalize();
 
@@ -67,10 +75,7 @@ class Blop {
 			}
 			
 		}
-		//Chechk if aim did not change position 
-		if(this.aim  && this.aim.pos != foods[this.aimIndex].pos) {
-			
-		} 
+		//Phisics and stuff
 		this.vel.x += this.acc.x;
 		this.vel.y += this.acc.y;
 
@@ -86,11 +91,13 @@ class Blop {
 		this.health -= map(this.mass, 0, 100, 0.001, 0.005);
 		this.lifeTime += 0.001;
 		
+		//If the update function returns positive the entity has died
 		if(this.health <= 0) {
 			return 1;
 		}
 		return 0;
 	}
+	//Drawing function
 	show() {
 		strokeWeight(2);
 		stroke(this.col.r, this.col.g, this.col.b);
@@ -109,21 +116,20 @@ class Blop {
 		line(this.pos.x - 13, this.pos.y - 13, this.pos.x + map(this.health, 0, this.maxHealth, -13, 13), this.pos.y - 13);
 		strokeWeight(1);
 	}
+	//Check for the best food at the moment 
 	findFood() {
 		
 		let min = null;
 		let foodIndex = null;
 		foods.forEach((food, index) => {
 			let d = dist(this.pos.x, this.pos.y, food.pos.x, food.pos.y);
-			
 			//Check if colide with food
 			if(d <= this.r/2) {
 				this.health = this.health >= this.maxHealth - food.nut ? this.maxHealth : this.health + food.nut;
 				foods[index] = new Food();				
 			}
-			
 			//Find nearest food
-			if((!min || d < min) && d <= this.viewRadius) {
+			if((!min || d < min) && d <= this.viewRadius/2) {
 				foodIndex = index;
 
 				min = d;
@@ -135,6 +141,7 @@ class Blop {
 		}
 		return {foodIndex, min};
 	}
+	//Check for the best enemy at the moment
 	findEnemy() {
 		let min = null;
 		let enemyIndex = null;
@@ -155,7 +162,7 @@ class Blop {
 				}
 				
 				//Find nearest enemy
-				if((!min || d < min) && d <= this.viewRadius) {
+				if((!min || d < min) && d <= this.viewRadius/2) {
 
 					enemyIndex = index;
 					min = d;
@@ -165,6 +172,7 @@ class Blop {
 
 		return {enemyIndex, min};
 	}
+	//Decide if food or enemy is better to aim for
 	decide() {
 		let enemyObj = this.findEnemy();
 		let foodObj = this.findFood();
@@ -174,7 +182,6 @@ class Blop {
 			this.aimIndex = enemyObj.enemyIndex;
 			this.aim.type = 'ENEMY';	
 		} else if(enemyObj.enemyIndex === null && foodObj.foodIndex !== null) {
-			
 			this.aim = foods[foodObj.foodIndex];
 			this.aimIndex = foodObj.foodIndex;
 			this.aim.type = 'FOOD';
@@ -183,15 +190,11 @@ class Blop {
 				this.aim = blops[enemyObj.enemyIndex];
 				this.aimIndex = enemyObj.enemyIndex;
 				this.aim.type = 'ENEMY';
-				//console.log('enemy');
-				
 			} else {
 				
 				this.aim = foods[foodObj.foodIndex];
 				this.aimIndex = foodObj.foodIndex;
 				this.aim.type = 'FOOD';
-	
-				//console.log('food');
 			}
 		}
 	}
