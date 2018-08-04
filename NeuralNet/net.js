@@ -41,17 +41,30 @@ class Net {
     }
 
     feedForward(_input) {
-        let a = _input;
-        for (let i = 0; i < this.numLayers; i++) {
-            let layerSize = this.sizes[i];
-            let b = Array(layerSize);
-            for (let j = 0; j < layerSize; j++) {
-                b[j] = this.neurons[i][j].activate(a);
-            }
-            a = b;
-        }
 
-        return(a);
+        if (_input.length != this.sizes[0]) {
+            throw new Error("Sizes don't match!")
+        } else {
+            let a = _input,
+                layerSize = this.sizes[0],
+                b = Array(layerSize)
+            for(let j = 0; j < layerSize; j++) {
+                b[j] = this.neurons[0][j].activate([a[j]])
+            }
+
+            a = b;
+
+            for (let i = 1; i < this.numLayers; i++) {
+                let layerSize = this.sizes[i];
+                let b = Array(layerSize);
+                for (let j = 0; j < layerSize; j++) {
+                    b[j] = this.neurons[i][j].activate(a);
+                }
+                a = b;
+            }
+            return(a);
+        }
+        
     }
 
 }
